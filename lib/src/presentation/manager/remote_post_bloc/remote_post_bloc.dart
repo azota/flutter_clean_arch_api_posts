@@ -11,24 +11,16 @@ part 'remote_post_state.dart';
 class RemotePostBloc extends Bloc<RemotePostEvent, RemotePostState> {
   final GetRemotePostsUseCase _getRemotePostsUseCase;
 
-  RemotePostBloc(this._getRemotePostsUseCase) : super(const RemotePostLoading());
-
-  @override
-  Stream<RemotePostState> mapEventToState(
-    RemotePostEvent event,
-  ) async* {
-    if (event is GetRemotePosts) {
-      yield RemotePostLoading();
-      yield* _getRemotePosts();
-    }
+  RemotePostBloc(this._getRemotePostsUseCase) : super(const RemotePostLoading()) {
+    on<GetRemotePosts>(_getRemotePosts);
   }
 
-  Stream<RemotePostState> _getRemotePosts() async* {
+  Future<void> _getRemotePosts(RemotePostEvent event, Emitter<RemotePostState> emit) async {
     final response = await _getRemotePostsUseCase();
     if (response.posts.isEmpty) {
-      yield RemotePostError(response.error);
+      emit(RemotePostError(response.error));
     } else {
-      yield RemotePostLoadingDone(response.posts);
+      emit(RemotePostLoadingDone(response.posts));
     }
   }
 }

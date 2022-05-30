@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -5,8 +8,10 @@ import 'package:flutter_app/src/data/models/comment_model.dart';
 import 'package:flutter_app/src/presentation/manager/remote_comment_bloc/remote_comment_bloc.dart';
 import 'package:flutter_app/src/presentation/widgets/item_commet_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../injector.dart';
+import 'network_service.dart';
 
 class MyCommentsPage extends StatefulWidget {
   final int postId;
@@ -90,7 +95,81 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
   }
 
   Future<void> _onRefresh(BuildContext context) async {
-    BlocProvider.of<RemoteCommentBloc>(context)
-        .add(GetRemoteComments(widget.postId));
+    /* BlocProvider.of<RemoteCommentBloc>(context)
+        .add(GetRemoteComments(widget.postId));    */        
+
+      /* log('dio -> ${GetIt.instance<Dio>().hashCode}');
+        _test(1);
+        _test(2);
+        _test(3);
+        _test(4);
+        _test(5);
+        _test(6);
+        _test(7);
+        _test(8);
+        _test(9);
+        _test(10); */
+
+    /* GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(1));
+    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(2));
+    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(3));
+    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(4));
+    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(5));
+    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(6));
+    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(7));
+    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(8));
+    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(9));
+    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(10)); */
+
+
+    final response = await Dio().get('https://jsonplaceholder.typicode.com/posts');
+    log('dio: response -> $response');
+    final response2 = await Dio().get('https://jsonplaceholder.typicode.com/posts');
+    log('dio: response -> $response');
+    final response3 = await Dio().get('https://jsonplaceholder.typicode.com/posts');
+    log('dio: response -> $response');
+    final response4 = await Dio().get('https://jsonplaceholder.typicode.com/posts');
+    log('dio: response -> $response');
+    final response5 = await Dio().get('https://jsonplaceholder.typicode.com/posts');
+    log('dio: response -> $response');
+    final response6 = await Dio().get('https://jsonplaceholder.typicode.com/posts');
+    log('dio: response -> $response');
+    final response7 = await Dio().get('https://jsonplaceholder.typicode.com/posts');
+    log('dio: response -> $response');
+    final response8 = await Dio().get('https://jsonplaceholder.typicode.com/posts');
+    log('dio: response -> $response');
+
+  }
+
+  Future<void> _test(postId) async {
+
+    //Instantiate a service and keep it in your DI container:
+    final service = NetworkService(baseUrl: 'https://jsonplaceholder.typicode.com', dioClient: GetIt.instance<Dio>());
+    // Prepare a request:
+    final request = NetworkRequest(
+      type: NetworkRequestType.POST, 
+      path: '/comments?postId=$postId',
+      data: NetworkRequestBody.json({
+        'login': 'user_name', 
+        'password': 'password'
+      }),
+    );
+    // Execute a request and convert response to your model:
+    final response = await service.execute(
+      request, 
+      AccessTokenResponse.fromJson, // <- Function to convert API response to your model
+    );
+    // Handle possible outcomes:
+    response.maybeWhen(
+      ok: (authResponse) {
+        // Save access token or proceed with other parts of your app
+      },
+      badRequest: (info) {
+        // Handle specific error
+      },
+      orElse: () {
+        // Handle generic error
+      }
+    );  
   }
 }

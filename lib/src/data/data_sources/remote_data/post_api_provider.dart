@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_app/src/data/models/comment_response_model.dart';
 import 'package:flutter_app/src/data/models/post_response_model.dart';
@@ -14,6 +16,10 @@ class PostApiProvider {
 
   Future<PostResponseModel> getPosts() async {
     try {
+      var _dio2 = Dio();
+      _dio2.options = _dio.options;
+
+      log('dio: ${_dio.hashCode}');
       Response response = await _dio.get("/posts");
       return PostResponseModel.fromJson(response.data);
     } catch (error, stacktrace) {
@@ -24,7 +30,12 @@ class PostApiProvider {
 
   Future<CommentResponseModel> getCommentsByPostId(int postId) async {
     try {
+      var _dio2 = Dio();
+      _dio2.options = _dio.options;
+
+      log('dio: request -> $postId -> ${_dio.hashCode}');
       Response response = await _dio.get("/comments?postId=$postId");
+      log('dio: response -> $postId -> ${_dio.hashCode}');
       return CommentResponseModel.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception ocurred: $error stacktrace: $stacktrace");
