@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/src/data/models/post_model.dart';
+import 'package:flutter_app/src/data/models/post_model.dart';
+import 'package:flutter_app/src/domain/entitis/post_entity.dart';
 import 'package:flutter_app/src/presentation/manager/remote_comment_bloc/remote_comment_bloc.dart';
 import 'package:flutter_app/src/presentation/manager/remote_post_bloc/remote_post_bloc.dart';
 import 'package:flutter_app/src/presentation/pages/my_comments_page.dart';
@@ -74,7 +76,7 @@ class _MyPostsPageState extends State<MyPostsPage> {
     );
   }
 
-  Widget _showListOfPosts(BuildContext context, List<PostModel> posts) {
+  Widget _showListOfPosts(BuildContext context, List<PostEntity> posts) {
     return RefreshIndicator(
         child: ListView.builder(
             padding: EdgeInsets.all(4),
@@ -83,10 +85,7 @@ class _MyPostsPageState extends State<MyPostsPage> {
               return Card(
                 child: ListTile(
                   contentPadding: EdgeInsets.all(8),
-                  leading: Icon(
-                    Icons.post_add,
-                    color: Colors.blue
-                  ),
+                  leading: Icon(Icons.post_add, color: Colors.blue),
                   title: Text(posts[index].title),
                   onTap: () {
                     Navigator.push(

@@ -1,6 +1,6 @@
 import 'package:flutter_app/src/data/data_sources/remote_data/post_api_provider.dart';
 import 'package:flutter_app/src/data/models/comment_response_model.dart';
-import 'package:flutter_app/src/data/models/post_response_model.dart';
+import 'package:flutter_app/src/domain/entitis/post_entity.dart';
 import 'package:flutter_app/src/domain/repositories/remote_repository.dart';
 
 class RemoteRepositoryImpl implements RemoteRepository {
@@ -9,8 +9,15 @@ class RemoteRepositoryImpl implements RemoteRepository {
   const RemoteRepositoryImpl(this._postApiProvider);
 
   @override
-  Future<PostResponseModel> getPosts() {
-    return _postApiProvider.getPosts();
+  Future<List<PostEntity>> getPosts() async {
+    var response;
+    try {
+      response = await _postApiProvider.getPosts();
+    } catch (e) {
+      print(e);
+    }
+
+    return response;
   }
 
   @override

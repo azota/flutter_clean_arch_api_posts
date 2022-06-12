@@ -98,7 +98,7 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
     /* BlocProvider.of<RemoteCommentBloc>(context)
         .add(GetRemoteComments(widget.postId));    */        
 
-      /* log('dio -> ${GetIt.instance<Dio>().hashCode}');
+    /* log('dio -> ${GetIt.instance<Dio>().hashCode}');
         _test(1);
         _test(2);
         _test(3);
@@ -110,7 +110,7 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
         _test(9);
         _test(10); */
 
-    /* GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(1));
+    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(1));
     GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(2));
     GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(3));
     GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(4));
@@ -119,25 +119,25 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
     GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(7));
     GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(8));
     GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(9));
-    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(10)); */
+    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(10));
 
 
-    final response = await Dio().get('https://jsonplaceholder.typicode.com/posts');
-    log('dio: response -> $response');
-    final response2 = await Dio().get('https://jsonplaceholder.typicode.com/posts');
-    log('dio: response -> $response');
-    final response3 = await Dio().get('https://jsonplaceholder.typicode.com/posts');
-    log('dio: response -> $response');
-    final response4 = await Dio().get('https://jsonplaceholder.typicode.com/posts');
-    log('dio: response -> $response');
-    final response5 = await Dio().get('https://jsonplaceholder.typicode.com/posts');
-    log('dio: response -> $response');
-    final response6 = await Dio().get('https://jsonplaceholder.typicode.com/posts');
-    log('dio: response -> $response');
-    final response7 = await Dio().get('https://jsonplaceholder.typicode.com/posts');
-    log('dio: response -> $response');
-    final response8 = await Dio().get('https://jsonplaceholder.typicode.com/posts');
-    log('dio: response -> $response');
+    // final response =  Dio().get('https://jsonplaceholder.typicode.com/posts');
+    // log('dio: response -> $response');
+    // final response2 =  Dio().get('https://jsonplaceholder.typicode.com/comments?postId=1');
+    // log('dio: response2 -> $response2');
+    // final response3 =  Dio().get('https://jsonplaceholder.typicode.com/posts');
+    // //log('dio: response -> $response');
+    // final response4 =  Dio().get('https://jsonplaceholder.typicode.com/comments?postId=2');
+    // //log('dio: response -> $response');
+    // final response5 =  Dio().get('https://jsonplaceholder.typicode.com/posts');
+    // //log('dio: response -> $response');
+    // final response6 =  Dio().get('https://jsonplaceholder.typicode.com/comments?postId=3');
+    // //log('dio: response -> $response');
+    // final response7 =  Dio().get('https://jsonplaceholder.typicode.com/posts');
+    // //log('dio: response -> $response');
+    // final response8 =  Dio().get('https://jsonplaceholder.typicode.com/comments?postId=4');
+    // //log('dio: response -> $response');
 
   }
 

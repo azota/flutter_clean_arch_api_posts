@@ -1,14 +1,14 @@
 import 'package:flutter_app/src/core/usecase/usecase.dart';
-import 'package:flutter_app/src/data/models/post_response_model.dart';
+import 'package:flutter_app/src/domain/entitis/post_entity.dart';
 import 'package:flutter_app/src/domain/repositories/remote_repository.dart';
 
-class GetRemotePostsUseCase implements UseCase<PostResponseModel, void> {
+class GetRemotePostsUseCase implements UseCase<List<PostEntity>, void> {
   final RemoteRepository _remoteRepository;
 
   GetRemotePostsUseCase(this._remoteRepository);
 
   @override
-  Future<PostResponseModel> call({void params}) {
+  Future<List<PostEntity>> call({void params}) {
     return _remoteRepository.getPosts();
   }
 }
