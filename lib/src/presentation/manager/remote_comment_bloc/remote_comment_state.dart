@@ -16,5 +16,6 @@ class RemoteCommentError extends RemoteCommentState {
 }
 
 class RemoteCommentLoadingDone extends RemoteCommentState {
-  const RemoteCommentLoadingDone(List<CommentModel> comments) : super(comments: comments);
+  const RemoteCommentLoadingDone(List<CommentModel> comments)
+      : super(comments: comments);
 }

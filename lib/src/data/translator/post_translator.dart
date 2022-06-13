@@ -1,5 +1,8 @@
-import 'package:flutter_app/src/data/models/post_model%20copy.dart';
-import 'package:flutter_app/src/domain/entitis/post_entity.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_app/src/data/dto/comment_dto.dart';
+import 'package:flutter_app/src/data/dto/post_dto.dart';
+import 'package:flutter_app/src/domain/models/comment_model.dart';
+import 'package:flutter_app/src/domain/models/post_model.dart';
 
 import '../../domain/models/data_state_model.dart';
 
@@ -10,18 +13,18 @@ class PostTranslator {
 
   factory PostTranslator() => _singleton;
 
-  Future<DataState<List<PostEntity>>> translatePost(
-    List<PostModel> popupInfo,
+  Future<DataState<List<PostModel>>> translatePost(
+    List<PostDto> postsInfo,
   ) {
     try {
       return compute(
-        (List<PostModel> popupInfo) {
-          var translated = popupInfo
+        (List<PostDto> postsInfo) {
+          var translated = postsInfo
               .map(
-                (popup) => Popup(
-                  imgUrl: popup.imgUrl,
-                  bannerType: popup.bannerType,
-                  linkUrl: popup.linkUrl,
+                (post) => PostModel(
+                  postId: post.postId,
+                  userId: post.userId,
+                  title: post.title,
                 ),
               )
               .toList();
@@ -30,10 +33,41 @@ class PostTranslator {
             translated,
           );
         },
-        popupInfo,
+        postsInfo,
       );
     } catch (error) {
-      throw TranslateException(error.toString());
+      //throw TranslateException(error.toString());
+      throw Exception('');
+    }
+  }
+
+  Future<DataState<List<CommentModel>>> translateComment(
+    List<CommentDto> commentInfo,
+  ) {
+    try {
+      return compute(
+        (List<CommentDto> commentInfo) {
+          var translated = commentInfo
+              .map(
+                (comment) => CommentModel(
+                  postId: comment.postId,
+                  commentId: comment.commentId,
+                  name: comment.name,
+                  email: comment.email,
+                  body: comment.body,
+                ),
+              )
+              .toList();
+
+          return DataState.success(
+            translated,
+          );
+        },
+        commentInfo,
+      );
+    } catch (error) {
+      //throw TranslateException(error.toString());
+      throw Exception('');
     }
   }
 }

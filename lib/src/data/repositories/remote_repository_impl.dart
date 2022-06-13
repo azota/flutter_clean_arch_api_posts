@@ -1,6 +1,8 @@
 import 'package:flutter_app/src/data/data_sources/remote_data/post_api_provider.dart';
-import 'package:flutter_app/src/data/models/comment_response_model.dart';
-import 'package:flutter_app/src/domain/entitis/post_entity.dart';
+import 'package:flutter_app/src/data/translator/post_translator.dart';
+import 'package:flutter_app/src/domain/models/comment_model.dart';
+import 'package:flutter_app/src/domain/models/data_state_model.dart';
+import 'package:flutter_app/src/domain/models/post_model.dart';
 import 'package:flutter_app/src/domain/repositories/remote_repository.dart';
 
 class RemoteRepositoryImpl implements RemoteRepository {
@@ -9,19 +11,24 @@ class RemoteRepositoryImpl implements RemoteRepository {
   const RemoteRepositoryImpl(this._postApiProvider);
 
   @override
-  Future<List<PostEntity>> getPosts() async {
-    var response;
+  Future<DataState<List<PostModel>>> getPosts() async {
     try {
-      response = await _postApiProvider.getPosts();
+      final response = await _postApiProvider.getPosts();
+      return PostTranslator().translatePost(response);
     } catch (e) {
       print(e);
+      return DataState.error(Exception(), e.toString());
     }
-
-    return response;
   }
 
   @override
-  Future<CommentResponseModel> getCommentsByPostId(int postId) {
-    return _postApiProvider.getCommentsByPostId(postId);
+  Future<DataState<List<CommentModel>>> getCommentsByPostId(int postId) async {
+    try {
+      final response = await _postApiProvider.getCommentsByPostId(postId);
+      return PostTranslator().translateComment(response);
+    } catch (e) {
+      print(e);
+      return DataState.error(Exception(), e.toString());
+    }
   }
 }

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_app/src/data/models/comment_response_model.dart';
-import 'package:flutter_app/src/data/models/post_model.dart';
+import 'package:flutter_app/src/data/dto/comment_dto.dart';
+import 'package:flutter_app/src/data/dto/post_dto.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'post_api_provider.g.dart';
@@ -10,8 +10,8 @@ abstract class PostApiProvider {
   factory PostApiProvider(Dio dio) = _PostApiProvider;
 
   @GET("/posts")
-  Future<List<PostModel>> getPosts();
+  Future<List<PostDto>> getPosts();
 
   @GET("/comments?postId={postId}")
-  Future<CommentResponseModel> getCommentsByPostId(@Path("postId") int postId);
+  Future<List<CommentDto>> getCommentsByPostId(@Path("postId") int postId);
 }

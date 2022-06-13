@@ -1,12 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_app/src/data/models/post_model.dart';
-import 'package:flutter_app/src/data/models/post_model.dart';
-import 'package:flutter_app/src/domain/entitis/post_entity.dart';
-import 'package:flutter_app/src/presentation/manager/remote_comment_bloc/remote_comment_bloc.dart';
+import 'package:flutter_app/src/domain/models/post_model.dart';
 import 'package:flutter_app/src/presentation/manager/remote_post_bloc/remote_post_bloc.dart';
 import 'package:flutter_app/src/presentation/pages/my_comments_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -76,7 +71,7 @@ class _MyPostsPageState extends State<MyPostsPage> {
     );
   }
 
-  Widget _showListOfPosts(BuildContext context, List<PostEntity> posts) {
+  Widget _showListOfPosts(BuildContext context, List<PostModel> posts) {
     return RefreshIndicator(
         child: ListView.builder(
             padding: EdgeInsets.all(4),

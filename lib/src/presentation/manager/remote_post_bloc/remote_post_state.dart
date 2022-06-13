@@ -1,7 +1,7 @@
 part of 'remote_post_bloc.dart';
 
 abstract class RemotePostState {
-  final List<PostEntity>? posts;
+  final List<PostModel>? posts;
   final String? error;
 
   const RemotePostState({this.posts, this.error});
@@ -16,5 +16,5 @@ class RemotePostError extends RemotePostState {
 }
 
 class RemotePostLoadingDone extends RemotePostState {
-  const RemotePostLoadingDone(List<PostEntity> posts) : super(posts: posts);
+  const RemotePostLoadingDone(List<PostModel> posts) : super(posts: posts);
 }

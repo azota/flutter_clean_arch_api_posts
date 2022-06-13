@@ -1,8 +1,9 @@
-import 'package:flutter_app/src/data/models/comment_response_model.dart';
-import 'package:flutter_app/src/domain/entitis/post_entity.dart';
+import 'package:flutter_app/src/domain/models/comment_model.dart';
+import 'package:flutter_app/src/domain/models/data_state_model.dart';
+import 'package:flutter_app/src/domain/models/post_model.dart';
 
 abstract class RemoteRepository {
-  Future<List<PostEntity>> getPosts();
+  Future<DataState<List<PostModel>>> getPosts();
 
-  Future<CommentResponseModel> getCommentsByPostId(int postId);
+  Future<DataState<List<CommentModel>>> getCommentsByPostId(int postId);
 }

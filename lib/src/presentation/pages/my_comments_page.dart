@@ -1,10 +1,6 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_app/src/data/models/comment_model.dart';
+import 'package:flutter_app/src/domain/models/comment_model.dart';
 import 'package:flutter_app/src/presentation/manager/remote_comment_bloc/remote_comment_bloc.dart';
 import 'package:flutter_app/src/presentation/widgets/item_commet_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,14 +74,16 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
     );
   }
 
-  Widget _showListOfComments(BuildContext context, RemoteCommentLoadingDone state) {
+  Widget _showListOfComments(
+      BuildContext context, RemoteCommentLoadingDone state) {
     return RefreshIndicator(
         child: ListView.builder(
             padding: EdgeInsets.all(4),
             itemCount: state.comments!.length,
             itemBuilder: (BuildContext context, int index) {
               CommentModel comment = state.comments![index];
-              return ItemCommentWidget(comment.name, comment.email, comment.body);
+              return ItemCommentWidget(
+                  comment.name, comment.email, comment.body);
               return ListTile(
                 title: Text(state.comments![index].name),
                 subtitle: Text(state.comments![index].body),
@@ -96,7 +94,7 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
 
   Future<void> _onRefresh(BuildContext context) async {
     /* BlocProvider.of<RemoteCommentBloc>(context)
-        .add(GetRemoteComments(widget.postId));    */        
+        .add(GetRemoteComments(widget.postId));    */
 
     /* log('dio -> ${GetIt.instance<Dio>().hashCode}');
         _test(1);
@@ -121,7 +119,6 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
     GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(9));
     GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(10));
 
-
     // final response =  Dio().get('https://jsonplaceholder.typicode.com/posts');
     // log('dio: response -> $response');
     // final response2 =  Dio().get('https://jsonplaceholder.typicode.com/comments?postId=1');
@@ -138,38 +135,33 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
     // //log('dio: response -> $response');
     // final response8 =  Dio().get('https://jsonplaceholder.typicode.com/comments?postId=4');
     // //log('dio: response -> $response');
-
   }
 
   Future<void> _test(postId) async {
-
     //Instantiate a service and keep it in your DI container:
-    final service = NetworkService(baseUrl: 'https://jsonplaceholder.typicode.com', dioClient: GetIt.instance<Dio>());
+    final service = NetworkService(
+        baseUrl: 'https://jsonplaceholder.typicode.com',
+        dioClient: GetIt.instance<Dio>());
     // Prepare a request:
     final request = NetworkRequest(
-      type: NetworkRequestType.POST, 
+      type: NetworkRequestType.POST,
       path: '/comments?postId=$postId',
-      data: NetworkRequestBody.json({
-        'login': 'user_name', 
-        'password': 'password'
-      }),
+      data: NetworkRequestBody.json(
+          {'login': 'user_name', 'password': 'password'}),
     );
     // Execute a request and convert response to your model:
     final response = await service.execute(
-      request, 
-      AccessTokenResponse.fromJson, // <- Function to convert API response to your model
+      request,
+      AccessTokenResponse
+          .fromJson, // <- Function to convert API response to your model
     );
     // Handle possible outcomes:
-    response.maybeWhen(
-      ok: (authResponse) {
-        // Save access token or proceed with other parts of your app
-      },
-      badRequest: (info) {
-        // Handle specific error
-      },
-      orElse: () {
-        // Handle generic error
-      }
-    );  
+    response.maybeWhen(ok: (authResponse) {
+      // Save access token or proceed with other parts of your app
+    }, badRequest: (info) {
+      // Handle specific error
+    }, orElse: () {
+      // Handle generic error
+    });
   }
 }

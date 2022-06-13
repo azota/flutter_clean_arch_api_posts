@@ -18,36 +18,38 @@ class _PostApiProvider implements PostApiProvider {
   String? baseUrl;
 
   @override
-  Future<List<PostModel>> getPosts() async {
+  Future<List<PostDto>> getPosts() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<PostModel>>(
+        _setStreamType<List<PostDto>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/posts',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
-        .map((dynamic i) => PostModel.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => PostDto.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
   @override
-  Future<CommentResponseModel> getCommentsByPostId(postId) async {
+  Future<List<CommentDto>> getCommentsByPostId(postId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<CommentResponseModel>(
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<CommentDto>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/comments?postId=${postId}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = CommentResponseModel.fromJson(_result.data!);
+    var value = _result.data!
+        .map((dynamic i) => CommentDto.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
