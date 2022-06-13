@@ -1,17 +1,15 @@
-import 'package:flutter_app/src/domain/entitis/post_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'post_model.g.dart';
 
 @JsonSerializable()
-class PostModel extends PostEntity {
+class PostModel {
   @JsonKey(name: 'id')
   final int postId;
   final int userId;
   final String title;
 
-  PostModel(this.postId, this.userId, this.title)
-      : super(postId, userId, title);
+  PostModel(this.postId, this.userId, this.title);
 
   factory PostModel.fromJson(Map<String, dynamic> json) =>
       _$PostModelFromJson(json);
