@@ -11,7 +11,7 @@ import '../../injector.dart';
 class MyPostsPage extends StatefulWidget {
   final String title;
 
-  MyPostsPage(this.title);
+  const MyPostsPage(this.title, {Key? key}) : super(key: key);
 
   @override
   _MyPostsPageState createState() => _MyPostsPageState();
@@ -19,7 +19,7 @@ class MyPostsPage extends StatefulWidget {
 
 class _MyPostsPageState extends State<MyPostsPage> {
   @override
-  initState() {
+  void initState() {
     super.initState();
   }
 
@@ -28,7 +28,8 @@ class _MyPostsPageState extends State<MyPostsPage> {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (_) => injector<RemotePostBloc>()..add(GetRemotePosts()),
+            create: (_) =>
+                injector<RemotePostBloc>()..add(const GetRemotePosts()),
           ),
         ],
         child: Scaffold(
@@ -47,7 +48,7 @@ class _MyPostsPageState extends State<MyPostsPage> {
     return BlocBuilder<RemotePostBloc, RemotePostState>(
       builder: (context, state) {
         if (state is RemotePostLoading) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (state is RemotePostLoadingDone) {
           return _showListOfPosts(context, state.posts!);
         } else if (state is RemotePostError) {
@@ -55,13 +56,13 @@ class _MyPostsPageState extends State<MyPostsPage> {
             padding: const EdgeInsets.all(8.0),
             child: Center(
                 child: Column(mainAxisSize: MainAxisSize.min, children: [
-              Text("Error ${state.error}", textAlign: TextAlign.center),
+              Text('Error ${state.error}', textAlign: TextAlign.center),
               ElevatedButton(
                 onPressed: () {
                   BlocProvider.of<RemotePostBloc>(context)
-                      .add(GetRemotePosts());
+                      .add(const GetRemotePosts());
                 },
-                child: Text("Try again"),
+                child: const Text('Try again'),
               )
             ])),
           );
@@ -74,13 +75,13 @@ class _MyPostsPageState extends State<MyPostsPage> {
   Widget _showListOfPosts(BuildContext context, List<PostModel> posts) {
     return RefreshIndicator(
         child: ListView.builder(
-            padding: EdgeInsets.all(4),
+            padding: const EdgeInsets.all(4),
             itemCount: posts.length,
             itemBuilder: (BuildContext context, int index) {
               return Card(
                 child: ListTile(
-                  contentPadding: EdgeInsets.all(8),
-                  leading: Icon(Icons.post_add, color: Colors.blue),
+                  contentPadding: const EdgeInsets.all(8),
+                  leading: const Icon(Icons.post_add, color: Colors.blue),
                   title: Text(posts[index].title),
                   onTap: () {
                     Navigator.push(
@@ -96,6 +97,6 @@ class _MyPostsPageState extends State<MyPostsPage> {
   }
 
   Future<void> _onRefresh(BuildContext context) async {
-    BlocProvider.of<RemotePostBloc>(context).add(GetRemotePosts());
+    BlocProvider.of<RemotePostBloc>(context).add(const GetRemotePosts());
   }
 }

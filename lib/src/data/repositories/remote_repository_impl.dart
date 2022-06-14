@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_app/src/data/data_sources/remote_data/post_api_provider.dart';
 import 'package:flutter_app/src/data/translator/post_translator.dart';
 import 'package:flutter_app/src/domain/models/comment_model.dart';
@@ -16,7 +18,7 @@ class RemoteRepositoryImpl implements RemoteRepository {
       final response = await _postApiProvider.getPosts();
       return PostTranslator().translatePost(response);
     } catch (e) {
-      print(e);
+      log(e.toString());
       return DataState.error(Exception(), e.toString());
     }
   }
@@ -27,7 +29,7 @@ class RemoteRepositoryImpl implements RemoteRepository {
       final response = await _postApiProvider.getCommentsByPostId(postId);
       return PostTranslator().translateComment(response);
     } catch (e) {
-      print(e);
+      log(e.toString());
       return DataState.error(Exception(), e.toString());
     }
   }

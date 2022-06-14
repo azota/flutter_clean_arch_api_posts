@@ -7,11 +7,13 @@ import 'package:flutter_app/src/presentation/pages/my_posts_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
-  HttpOverrides.global = new MyHttpOverrides();
-  runApp(MyApp());
+  HttpOverrides.global = MyHttpOverrides();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyPostsPage("Posts..."),
+      home: const MyPostsPage('Posts...'),
     );
   }
 }

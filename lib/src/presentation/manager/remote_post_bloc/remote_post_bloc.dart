@@ -23,7 +23,7 @@ class RemotePostBloc extends Bloc<RemotePostEvent, RemotePostState> {
     response.when(success: (posts) {
       emit(RemotePostLoadingDone(posts));
     }, error: (e, message) {
-      emit(RemotePostError('response.error'));
+      emit(const RemotePostError('response.error'));
     });
   }
 }

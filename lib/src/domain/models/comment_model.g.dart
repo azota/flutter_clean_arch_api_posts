@@ -13,12 +13,3 @@ CommentModel _$CommentModelFromJson(Map<String, dynamic> json) => CommentModel(
       email: json['email'] as String,
       body: json['body'] as String,
     );
-
-Map<String, dynamic> _$CommentModelToJson(CommentModel instance) =>
-    <String, dynamic>{
-      'postId': instance.postId,
-      'commentId': instance.commentId,
-      'name': instance.name,
-      'email': instance.email,
-      'body': instance.body,
-    };

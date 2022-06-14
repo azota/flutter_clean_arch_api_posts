@@ -13,12 +13,3 @@ CommentDto _$CommentDtoFromJson(Map<String, dynamic> json) => CommentDto(
       json['email'] as String,
       json['body'] as String,
     );
-
-Map<String, dynamic> _$CommentDtoToJson(CommentDto instance) =>
-    <String, dynamic>{
-      'postId': instance.postId,
-      'id': instance.commentId,
-      'name': instance.name,
-      'email': instance.email,
-      'body': instance.body,
-    };

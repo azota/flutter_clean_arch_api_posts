@@ -26,10 +26,10 @@ Future<void> initializeDependencies() async {
   injector.registerSingleton<GetRemotePostsUseCase>(
       GetRemotePostsUseCase(injector()));
   injector.registerSingleton<GetRemoteCommentsByPostIdUseCase>(
-      GetRemoteCommentsByPostIdUseCase(injector())
-  );
+      GetRemoteCommentsByPostIdUseCase(injector()));
 
   // Blocs
   injector.registerFactory<RemotePostBloc>(() => RemotePostBloc(injector()));
-  injector.registerFactory<RemoteCommentBloc>(() => RemoteCommentBloc(injector()));
+  injector
+      .registerFactory<RemoteCommentBloc>(() => RemoteCommentBloc(injector()));
 }

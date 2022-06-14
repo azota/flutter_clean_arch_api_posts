@@ -5,13 +5,13 @@ import 'package:retrofit/retrofit.dart';
 
 part 'post_api_provider.g.dart';
 
-@RestApi(baseUrl: "https://jsonplaceholder.typicode.com")
+@RestApi(baseUrl: 'https://jsonplaceholder.typicode.com')
 abstract class PostApiProvider {
   factory PostApiProvider(Dio dio) = _PostApiProvider;
 
-  @GET("/posts")
+  @GET('/posts')
   Future<List<PostDto>> getPosts();
 
-  @GET("/comments?postId={postId}")
-  Future<List<CommentDto>> getCommentsByPostId(@Path("postId") int postId);
+  @GET('/comments?postId={postId}')
+  Future<List<CommentDto>> getCommentsByPostId(@Path('postId') int postId);
 }

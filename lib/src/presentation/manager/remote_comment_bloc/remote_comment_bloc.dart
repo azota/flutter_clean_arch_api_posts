@@ -12,7 +12,7 @@ class RemoteCommentBloc extends Bloc<RemoteCommentEvent, RemoteCommentState> {
   final GetRemoteCommentsByPostIdUseCase _getRemoteCommentsByPostIdUseCase;
 
   RemoteCommentBloc(this._getRemoteCommentsByPostIdUseCase)
-      : super(RemoteCommentLoading()) {
+      : super(const RemoteCommentLoading()) {
     on<RemoteCommentEvent>(_getRemoteComments);
   }
 
@@ -23,7 +23,7 @@ class RemoteCommentBloc extends Bloc<RemoteCommentEvent, RemoteCommentState> {
     response.when(success: (comment) {
       emit(RemoteCommentLoadingDone(comment));
     }, error: (e, message) {
-      emit(RemoteCommentError('response.error'));
+      emit(const RemoteCommentError('response.error'));
     });
   }
 }

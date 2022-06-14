@@ -13,7 +13,8 @@ class MyCommentsPage extends StatefulWidget {
   final int postId;
   final String postTitle;
 
-  MyCommentsPage(this.postId, this.postTitle);
+  const MyCommentsPage(this.postId, this.postTitle, {Key? key})
+      : super(key: key);
 
   @override
   _MyCommentsPageState createState() => _MyCommentsPageState();
@@ -21,7 +22,7 @@ class MyCommentsPage extends StatefulWidget {
 
 class _MyCommentsPageState extends State<MyCommentsPage> {
   @override
-  initState() {
+  void initState() {
     super.initState();
   }
 
@@ -42,7 +43,7 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
 
   PreferredSizeWidget _buildAppBar(context) {
     return AppBar(
-      title: Text("Comments"),
+      title: const Text('Comments'),
     );
   }
 
@@ -50,7 +51,7 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
     return BlocBuilder<RemoteCommentBloc, RemoteCommentState>(
       builder: (context, state) {
         if (state is RemoteCommentLoading) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (state is RemoteCommentLoadingDone) {
           return _showListOfComments(context, state);
         } else if (state is RemoteCommentError) {
@@ -58,13 +59,13 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
             padding: const EdgeInsets.all(8.0),
             child: Center(
                 child: Column(mainAxisSize: MainAxisSize.min, children: [
-              Text("Error ${state.error}", textAlign: TextAlign.center),
+              Text('Error ${state.error}', textAlign: TextAlign.center),
               ElevatedButton(
                 onPressed: () {
                   BlocProvider.of<RemoteCommentBloc>(context)
                       .add(GetRemoteComments(widget.postId));
                 },
-                child: Text("Try again"),
+                child: const Text('Try again'),
               )
             ])),
           );
@@ -78,16 +79,12 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
       BuildContext context, RemoteCommentLoadingDone state) {
     return RefreshIndicator(
         child: ListView.builder(
-            padding: EdgeInsets.all(4),
+            padding: const EdgeInsets.all(4),
             itemCount: state.comments!.length,
             itemBuilder: (BuildContext context, int index) {
               CommentModel comment = state.comments![index];
               return ItemCommentWidget(
                   comment.name, comment.email, comment.body);
-              return ListTile(
-                title: Text(state.comments![index].name),
-                subtitle: Text(state.comments![index].body),
-              );
             }),
         onRefresh: () => _onRefresh(context));
   }
@@ -108,16 +105,16 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
         _test(9);
         _test(10); */
 
-    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(1));
-    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(2));
-    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(3));
-    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(4));
-    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(5));
-    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(6));
-    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(7));
-    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(8));
-    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(9));
-    GetIt.instance<RemoteCommentBloc>().add(GetRemoteComments(10));
+    GetIt.instance<RemoteCommentBloc>().add(const GetRemoteComments(1));
+    GetIt.instance<RemoteCommentBloc>().add(const GetRemoteComments(2));
+    GetIt.instance<RemoteCommentBloc>().add(const GetRemoteComments(3));
+    GetIt.instance<RemoteCommentBloc>().add(const GetRemoteComments(4));
+    GetIt.instance<RemoteCommentBloc>().add(const GetRemoteComments(5));
+    GetIt.instance<RemoteCommentBloc>().add(const GetRemoteComments(6));
+    GetIt.instance<RemoteCommentBloc>().add(const GetRemoteComments(7));
+    GetIt.instance<RemoteCommentBloc>().add(const GetRemoteComments(8));
+    GetIt.instance<RemoteCommentBloc>().add(const GetRemoteComments(9));
+    GetIt.instance<RemoteCommentBloc>().add(const GetRemoteComments(10));
 
     // final response =  Dio().get('https://jsonplaceholder.typicode.com/posts');
     // log('dio: response -> $response');
@@ -137,6 +134,7 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
     // //log('dio: response -> $response');
   }
 
+  // ignore: unused_element
   Future<void> _test(postId) async {
     //Instantiate a service and keep it in your DI container:
     final service = NetworkService(
@@ -146,7 +144,7 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
     final request = NetworkRequest(
       type: NetworkRequestType.POST,
       path: '/comments?postId=$postId',
-      data: NetworkRequestBody.json(
+      data: const NetworkRequestBody.json(
           {'login': 'user_name', 'password': 'password'}),
     );
     // Execute a request and convert response to your model:

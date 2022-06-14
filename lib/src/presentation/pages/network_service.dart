@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -30,7 +32,7 @@ class NetworkRequest {
     this.queryParams,
     this.headers,
   });
-  
+
   final NetworkRequestType type;
   final String path;
   final NetworkRequestBody data;
@@ -41,7 +43,8 @@ class NetworkRequest {
 @freezed
 class NetworkResponse<Model> with _$NetworkResponse {
   const factory NetworkResponse.ok(Model data) = Ok;
-  const factory NetworkResponse.invalidParameters(String message) = InvalidParameters;
+  const factory NetworkResponse.invalidParameters(String message) =
+      InvalidParameters;
   const factory NetworkResponse.noAuth(String message) = NoAuth; //401
   const factory NetworkResponse.noAccess(String message) = NoAccess; //403
   const factory NetworkResponse.badRequest(String message) = BadRequest; //400
@@ -118,12 +121,12 @@ class NetworkService {
     required this.baseUrl,
     dioClient,
     httpHeaders,
-  })  : this._dio = dioClient,
-        this._headers = httpHeaders ?? {};
+  })  : _dio = dioClient,
+        _headers = httpHeaders ?? {};
   Dio? _dio;
   final String baseUrl;
-  Map<String, String> _headers;
-  
+  final Map<String, String> _headers;
+
   Future<Dio> _getDefaultDioClient() async {
     _headers['content-type'] = 'application/json; charset=utf-8';
     final dio = Dio()
@@ -131,19 +134,19 @@ class NetworkService {
       ..options.headers = _headers
       ..options.connectTimeout = 5000 // 5 seconds
       ..options.receiveTimeout = 3000; // 3 seconds
-      
+
     return dio;
   }
 
   void addBasicAuth(String accessToken) {
     _headers['Authorization'] = 'Bearer $accessToken';
   }
-  
+
   Future<NetworkResponse<Model>> execute<Model>(
     NetworkRequest request,
     Model Function(Map<String, dynamic>) parser, {
-    ProgressCallback? onSendProgress = null,
-    ProgressCallback? onReceiveProgress = null,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
   }) async {
     if (_dio == null) {
       log('##################################');

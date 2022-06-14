@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ItemCommentWidget extends StatelessWidget {
@@ -6,7 +5,8 @@ class ItemCommentWidget extends StatelessWidget {
   final String email;
   final String body;
 
-  ItemCommentWidget(this.name, this.email, this.body);
+  const ItemCommentWidget(this.name, this.email, this.body, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,24 +15,28 @@ class ItemCommentWidget extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           child: Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.comment_sharp,
                 color: Colors.blue,
               ),
-              SizedBox(width: 18),
+              const SizedBox(width: 18),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Name:",
+                    const Text('Name:',
                         style: TextStyle(fontSize: 12, color: Colors.blue)),
                     Text(name),
-                    SizedBox(height: 8,),
-                    Text("Emai:",
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    const Text('Emai:',
                         style: TextStyle(fontSize: 12, color: Colors.blue)),
                     Text(email),
-                    SizedBox(height: 8,),
-                    Text("Body:",
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    const Text('Body:',
                         style: TextStyle(fontSize: 12, color: Colors.blue)),
                     Text(body),
                   ],
