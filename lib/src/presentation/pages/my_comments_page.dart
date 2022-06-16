@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/domain/models/comment_model.dart';
-import 'package:flutter_app/src/presentation/manager/remote_comment_bloc/remote_comment_bloc.dart';
-import 'package:flutter_app/src/presentation/widgets/item_commet_widget.dart';
+import '../../domain/models/comment_model.dart';
+import '../manager/remote_comment_bloc/remote_comment_bloc.dart';
+import '../widgets/item_commet_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -29,16 +29,17 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (_) => injector<RemoteCommentBloc>()
-              ..add(GetRemoteComments(widget.postId)),
-          ),
-        ],
-        child: Scaffold(
-          appBar: _buildAppBar(context),
-          body: _buildBody(),
-        ));
+      providers: [
+        BlocProvider(
+          create: (_) => injector<RemoteCommentBloc>()
+            ..add(GetRemoteComments(widget.postId)),
+        ),
+      ],
+      child: Scaffold(
+        appBar: _buildAppBar(context),
+        body: _buildBody(),
+      ),
+    );
   }
 
   PreferredSizeWidget _buildAppBar(context) {
@@ -58,35 +59,41 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
-                child: Column(mainAxisSize: MainAxisSize.min, children: [
-              Text('Error ${state.error}', textAlign: TextAlign.center),
-              ElevatedButton(
-                onPressed: () {
-                  BlocProvider.of<RemoteCommentBloc>(context)
-                      .add(GetRemoteComments(widget.postId));
-                },
-                child: const Text('Try again'),
-              )
-            ])),
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
+                Text('Error ${state.error}', textAlign: TextAlign.center),
+                ElevatedButton(
+                  onPressed: () {
+                    BlocProvider.of<RemoteCommentBloc>(context)
+                        .add(GetRemoteComments(widget.postId));
+                  },
+                  child: const Text('Try again'),
+                ),
+              ]),
+            ),
           );
         }
+
         return Container();
       },
     );
   }
 
   Widget _showListOfComments(
-      BuildContext context, RemoteCommentLoadingDone state) {
+    BuildContext context,
+    RemoteCommentLoadingDone state,
+  ) {
     return RefreshIndicator(
-        child: ListView.builder(
-            padding: const EdgeInsets.all(4),
-            itemCount: state.comments!.length,
-            itemBuilder: (BuildContext context, int index) {
-              CommentModel comment = state.comments![index];
-              return ItemCommentWidget(
-                  comment.name, comment.email, comment.body);
-            }),
-        onRefresh: () => _onRefresh(context));
+      child: ListView.builder(
+        padding: const EdgeInsets.all(4),
+        itemCount: state.comments!.length,
+        itemBuilder: (BuildContext context, int index) {
+          CommentModel comment = state.comments![index];
+
+          return ItemCommentWidget(comment.name, comment.email, comment.body);
+        },
+      ),
+      onRefresh: () => _onRefresh(context),
+    );
   }
 
   Future<void> _onRefresh(BuildContext context) async {
@@ -138,14 +145,16 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
   Future<void> _test(postId) async {
     //Instantiate a service and keep it in your DI container:
     final service = NetworkService(
-        baseUrl: 'https://jsonplaceholder.typicode.com',
-        dioClient: GetIt.instance<Dio>());
+      baseUrl: 'https://jsonplaceholder.typicode.com',
+      dioClient: GetIt.instance<Dio>(),
+    );
     // Prepare a request:
     final request = NetworkRequest(
       type: NetworkRequestType.POST,
       path: '/comments?postId=$postId',
       data: const NetworkRequestBody.json(
-          {'login': 'user_name', 'password': 'password'}),
+        {'login': 'user_name', 'password': 'password'},
+      ),
     );
     // Execute a request and convert response to your model:
     final response = await service.execute(
@@ -154,12 +163,22 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
           .fromJson, // <- Function to convert API response to your model
     );
     // Handle possible outcomes:
-    response.maybeWhen(ok: (authResponse) {
-      // Save access token or proceed with other parts of your app
-    }, badRequest: (info) {
-      // Handle specific error
-    }, orElse: () {
-      // Handle generic error
-    });
+    // ignore: no-empty-block
+    response.maybeWhen(
+      // ignore: no-empty-block
+      ok: (authResponse) {
+        // Save access token or proceed with other parts of your app
+        // ignore: no-empty-block
+      },
+      // ignore: no-empty-block
+      badRequest: (info) {
+        // Handle specific error
+        // ignore: no-empty-block
+      },
+      // ignore: no-empty-block
+      orElse: () {
+        // Handle generic error
+      },
+    );
   }
 }

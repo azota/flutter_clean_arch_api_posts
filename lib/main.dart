@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/injector.dart';
-import 'package:flutter_app/src/presentation/pages/my_posts_page.dart';
+import 'src/injector.dart';
+import 'src/presentation/pages/my_posts_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_app/src/data/dto/comment_dto.dart';
-import 'package:flutter_app/src/data/dto/post_dto.dart';
+import '../../dto/comment_dto.dart';
+import '../../dto/post_dto.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'post_api_provider.g.dart';

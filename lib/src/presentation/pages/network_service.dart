@@ -91,6 +91,7 @@ Future<NetworkResponse<Model>> executeRequest<Model>(
       onReceiveProgress: request.onReceiveProgress,
     );
     log('dio: response -> ${request.dio.hashCode} -> ${request.request.path}');
+
     return NetworkResponse.ok(request.parser(response.data));
   } on DioError catch (error) {
     final errorText = error.toString();
@@ -164,6 +165,7 @@ class NetworkService {
       executeRequest<Model>,
       req,
     );
+
     return result;
   }
 }
