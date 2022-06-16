@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_app/src/data/dto/comment_dto.dart';
-import 'package:flutter_app/src/data/dto/post_dto.dart';
-import 'package:flutter_app/src/domain/models/comment_model.dart';
-import 'package:flutter_app/src/domain/models/post_model.dart';
+import '../dto/comment_dto.dart';
+import '../dto/post_dto.dart';
+import '../../domain/models/comment_model.dart';
+import '../../domain/models/post_model.dart';
 
 import '../../domain/models/data_state_model.dart';
 

@@ -1,5 +1,22 @@
 include: package:flutter_lints/flutter.yaml
 
+linter:
+  rules:
+    ignore: camel_case_types
+    prefer_relative_imports: true
+    avoid_unnecessary_containers: true
+
+analyzer:
+  errors:
+    todo: ignore
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.test.dart"
+    - "**/main.reflectable.dart"
+  plugins:
+    - dart_code_metrics
+    
 dart_code_metrics:
   anti-patterns:
     - long-method
