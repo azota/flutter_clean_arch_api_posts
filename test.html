@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover, shrink-to-fit=no" />
+  <title>GS Fresh 테스트 URL</title>
+<style type="text/css">
+html, body{font-size:16px;line-height:1.25em;}
+a{display:inline-block;padding:2.5px 5px;}
+</style>
+
+<script type="text/javascript">
+var channelCode = '2043';
+var JS_INTERFACE_NAME = 'flutterAppInterface';
+
+window.addEventListener("flutterInAppWebViewPlatformReady", function(event) {
+  console.log("ready");
+});
+
+function openwindow() {
+  //window.open("http://10.52.164.237/test/app/fresh.html", "gsPayInitConfig", "width=500,height=600");
+  this.gspayWinObj = window.open("", "gsPayInitConfig", "width=500,height=600");
+  window.gspayWinObj = this.gspayWinObj;
+  reqGsPayConfigOpenForm.target = 'gsPayInitConfig';
+  reqGsPayConfigOpenForm.action = 'http://10.52.164.237/test/app/fresh.html';
+  setTimeout(() => {
+          reqGsPayConfigOpenForm.submit();
+        }, 500);
+}
+
+function pcallback() {
+  console.log('parent callback');
+}
+
+function callopener() {
+  alert('opener is ' + window.opener);
+  if (opener == null) {
+    console.log('opener is null');
+  } else {
+    opener.pcallback();
+    window.close();
+  }  
+}
+
+function backkey() {
+  console.log('backkey');
+  location.href = 'https://my-m.gsfreshqa.com/pa/kbpay_mo_callback?resultCode=0000&resultMsg=%EC%A0%95%EC%83%81%20%EC%B2%98%EB%A6%AC%EB%90%98%EC%97%88%EC%8A%B5%EB%8B%88%EB%8B%A4.&encUserMngNo=';
+}
+
+function checkopener() {
+  alert('opener is ' + window.opener);
+}
+
+function goBack() {
+  alert('goBack');
+  window.history.back();
+}
+
+function setVerifySSOToken() {
+  var param = {chnnlCode: channelCode, ssoAuthToken:'ssoAuthToken_12345'};
+  window.flutter_inappwebview.callHandler(JS_INTERFACE_NAME, {actKey:'setVerifySSOToken', param: JSON.stringify(param)});
+}
+
+function setSSOToken() {
+  var param = {chnnlCode: channelCode, ssoAuthToken:'ssoAuthToken_123'};
+  window.flutter_inappwebview.callHandler(JS_INTERFACE_NAME, {actKey:'setSSOToken', param: param});
+}
+
+function getSSOToken() {
+  var param = {chnnlCode: channelCode};
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'getSSOToken', param: param});
+}
+
+function removeSSOToken() {
+  var param = {chnnlCode: channelCode, unityMberNo: '1000020000'};
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'removeSSOToken', param: param});
+}
+
+
+function refreshToken() {
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'refreshToken'});
+}
+
+function getSSOInfoPopupYn() {
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'getSSOInfoPopupYn'})
+    .then(function(result) {
+      //callback from app (result is 'Y' or 'N')
+      alert('result: ' + result);
+  });
+}
+
+function setSSOInfoPopupYn() {
+  var param = {popupYn: 'Y'};
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'setSSOInfoPopupYn', param: param});
+}
+
+/*function close() {
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'close'});
+}*/
+
+function loginComplete() {
+  var param = {autoLoginCertVal: 'autoLoginCertVal_123', autoLoginYn:'Y', refreshToken: 'refreshToken_123', custNo: 'custNo_123', idToken: 'idToken_123', expiresIn: 362000};
+  window.flutter_inappwebview.callHandler(JS_INTERFACE_NAME, {actKey:'loginComplete', param: param});
+}
+
+
+function loginComplete2() {
+  var jwtParam = {idToken: 'idToken_123', refreshToken:'refreshToken_123', expiresIn: 362000, tokenType:'Bearer'};
+  var param = {autoLoginCertVal: 'autoLoginCertVal_123', autoLoginYn:'Y', refreshToken: 'refreshToken_123', custNo: 'custNo_123', jwt:jwtParam};
+  window.flutter_inappwebview.callHandler(JS_INTERFACE_NAME, {actKey:'loginComplete', param: param});
+}
+
+function logoutComplete() {
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'logoutComplete'});
+}
+
+function openbrowser() {
+  var param = {url: 'http://m.gsshop.com'};
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'openbrowser', param: param});
+}
+
+function appinfo() {
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'appinfo'});
+}
+
+
+function gsPayFullPopupYn() {
+  var param = {gsPayFullPopupYn: 'Y'};
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'gsPayFullPopupYn', param: param});
+}
+
+function notiPushAgreeYn() {
+  var param = {notiFlag: 'N'};
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'notiPushAgreeYn', param: param});
+}
+
+function clipboardCopy() {
+  var param = {msg: '클립보드에 복사했습니다.'};
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'clipboardCopy', param: param});
+}
+
+function mktPushAgreeYn() {
+  var param = {mktFlag: 'N'};
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'mktPushAgreeYn', param: param});
+}
+
+function openApplication() {
+  var param = {scheme: 'lalavla'};
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'openApplication', param: param});
+}
+
+function smsshare() {
+  var param = {msg: '문자메시지 공유', url: 'http://m.gsfresh.com'};
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'smsshare', param: param});
+}
+
+function naverLogin() {
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'naverLogin'});
+}
+
+function kakaoLogin() {
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'kakaoLogin'});
+}
+
+function snsUnlink() {
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'snsUnlink'});
+}
+
+
+function receiveGsrToken(param) {
+  alert('receiveGsrToken: ' + param);
+  console.log('receiveGsrToken: ' + param);
+}
+
+function appcallback(param) {
+  alert('appIF.appcallback: ' + param.cmd);
+  //alert('appIF.appcallback: ' + param);
+  console.log('appIF.appcallback: ' + param);
+}
+
+function appToWeb(param) {
+  alert('appToWeb: ' + param);
+  console.log('appToWeb: ' + param);
+}
+
+function notDefined() {
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'notDefined'})
+    .then(function(result) {
+      //callback from app (result is null)
+      alert('result: ' + result);
+  });
+}
+
+function noArgs() {
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME)
+    .then(function(result) {
+      //callback from app (result is null)
+      alert('no args: ' + result);
+  });
+}
+
+function appInfoTest() {
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'appinfo'});
+}
+
+function contactsInAppWebviewTest() {
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'contacts'});
+}
+
+function contactsFlutterWebviewTest() {
+  mobileAppInterface.postMessage('{"actKey":"contacts"}');
+}
+
+function confirmTest() {
+   if(confirm('최한나 confirmTest')){
+      alert('확인클릭');
+   }else{
+      alert('취소클릭');
+   }
+}
+function alertTest() {
+      alert('alertTest');
+  
+}
+
+function openTest(){
+window.open("http://10.52.164.237/test/app/fresh.html", "PopupWin", "width=500,height=600");
+}
+
+function closeTest(){
+alert('close');
+window.close();
+}
+
+function attach(){
+  var param = {permissions: 'camera'};
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'requestPermission', param: param})
+    .then(function(result) {
+      //callback from app
+      alert('result: ' + result);
+      document.getElementById("uploadPhoto").click();
+  });
+}
+function attach2(){
+  document.getElementById("uploadPhoto").click();
+}
+function permission1(){
+  var param = {permissions: 'camera'};
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'requestPermission', param: param})
+    .then(function(result) {
+      alert('result: ' + result);
+  });
+}
+function permission2(){
+  var param = {permissions: 'camera, contacts'};
+  window.flutter_inappwebview
+    .callHandler(JS_INTERFACE_NAME, {actKey:'requestPermission', param: param})
+    .then(function(result) {
+      alert('result: ' + result);
+  });
+}
+</script>
+
+</head>
+<body>
+
+<br><br><br><br>
+<a href="gssmapp://default?movemenu=mainview&moveurl=http://10.52.164.237/test/app/fresh.html">GSFresh App 에서 이페이지 열기 </a><br><br>
+<a href="gsshopmobile://home?http://10.52.164.237/test/app/fresh.html">GSSHOP App 테스트 페이지 열기</a>
+<br><br><br><br>
+  <form id="reqGsPayConfigOpenForm" name="reqGsPayConfigOpenForm" ref="reqGsPayConfigOpenForm" method="post" action="">
+    <input type="hidden" id="deviceType" name="deviceType" v-model="reqForm.deviceType" /> <!-- PC or Mob -->
+    <input type="hidden" id="gid" name="gid" v-model="reqForm.gid" > <!-- KBPAY사에서 발급한 GID -->
+    <input type="hidden" id="mid" name="mid" v-model="reqForm.mid" > <!-- KBPAY에서 발급한 MID -->
+    <input type="hidden" id="mallUserID" name="mallUserID" v-model="reqForm.mallUserID" > <!-- 고객ID -->
+    <input type="hidden" id="chanlCustCd" name="chanlCustCd" v-model="reqForm.chanlCustCd" > <!-- 채널고객유형 -->
+    <input type="hidden" id="returnUrl" name="returnUrl" v-model="reqForm.callbackUrl" > <!-- callback url -->
+    <input type="hidden" id="encodingType" name="encodingType" v-model="reqForm.encodingType"/>
+  </form>
+<br>
+<a href="javascript:openwindow();">open window</a><br><br><br>
+<a href="javascript:callopener();">call opener</a><br><br><br>
+<a href="javascript:backkey();">call backkey</a><br><br><br>
+<a href="javascript:checkopener();">check opener</a><br><br><br>
+
+<form method="post" enctype="multipart/form-data">
+ <div>
+   <label for="file"><a href="javascript:attach();">사진첨부</a></label>
+   <input type="file" id="uploadPhoto" accept="image/*" multiple />
+ </div>
+</form>
+<br>
+<label><a href="javascript:attach2();">사진첨부2</a></label><br>
+<label><a href="javascript:permission1();">권한요청1</a></label><br>
+<label><a href="javascript:permission2();">권한요청2</a></label><br>
+<br><br><br><br>
+
+<a href="intent://#Intent;scheme=gssmapp;package=com.gsretail.android.smapp;end">intent scheme type1</a><br><br>
+<a href="intent://default?movemenu=mainview&moveurl=https://m.gsshop.com/prd/prd.gs?prdid=1006494003#Intent;scheme=gssmapp;package=com.gsretail.android.smapp;end">intent scheme type2</a><br><br>
+<a href="gssmapp://default?movemenu=mainview">deeplink(main)</a><br><br>
+<a href="gssmapp://default?movemenu=mainview&moveurl=https://my-m.gsfresh.com/ev/event/2107000065">deeplink(web)</a>
+
+<br><br><br><br>
+
+<a href="sms:0103335555?body=문자메시지">sms:0103335555?body=문자메시지</a><br><br>
+<a href="tel:0103335555">tel:0103335555</a><br><br>
+<a href="toapp://home">toapp://home</a><br><br>
+<a href="toapp://back">toapp://back</a><br><br>
+<a href="toapp://close">toapp://close</a><br><br>
+<a href="https://m.gsfresh.com/">https://m.gsfresh.com/</a>
+
+<br><br><br><br>
+
+<a href="javascript:goBack();">goBack</a><br><br><br>
+<a href="javascript:setVerifySSOToken();">setVerifySSOToken</a><br><br><br>
+<a href="javascript:setSSOToken();">setSSOToken</a><br><br><br>
+<a href="javascript:getSSOToken();">getSSOToken</a><br><br><br>
+<a href="javascript:removeSSOToken();">removeSSOToken</a><br><br><br>
+<a href="javascript:refreshToken();">refreshToken</a><br><br><br>
+<a href="javascript:getSSOInfoPopupYn();">getSSOInfoPopupYn</a><br><br><br>
+<a href="javascript:setSSOInfoPopupYn();">setSSOInfoPopupYn</a><br><br><br>
+<a href="javascript:close();">close</a><br><br><br>
+<a href="javascript:loginComplete();">loginComplete</a><br><br><br>
+<a href="javascript:logoutComplete();">logoutComplete</a><br><br><br>
+<a href="javascript:openbrowser();">openbrowser</a><br><br><br>
+<a href="javascript:appinfo();">appinfo</a><br><br><br>
+<a href="javascript:clearWebCache();">clearWebCache</a><br><br><br>
+<a href="javascript:appCallRemoveApplicationData();">appCallRemoveApplicationData</a><br><br><br>
+<a href="javascript:gsPayFullPopupYn();">gsPayFullPopupYn</a><br><br><br>
+<a href="javascript:notiPushAgreeYn();">notiPushAgreeYn</a><br><br><br>
+<a href="javascript:mktPushAgreeYn();">mktPushAgreeYn</a><br><br><br>
+<a href="javascript:clipboardCopy();">clipboardCopy</a><br><br><br>
+<a href="javascript:openApplication();">openApplication</a><br><br><br>
+<a href="javascript:smsshare();">smsshare</a><br><br><br>
+<a href="javascript:appInfoTest();">appInfoTest_최한나</a><br><br><br>
+<a href="javascript:contactsInAppWebviewTest();">contactsInAppWebview_최한나</a><br><br><br>
+<a href="javascript:contactsFlutterWebviewTest();">contactsFlutterWebview_최한나</a><br><br><br>
+<a href="javascript:confirmTest();">jsConfirm_최한나</a><br><br><br>
+<a href="javascript:alertTest();">jsAlert_최한나</a><br><br><br>
+<a href="javascript:openTest();">window.open_최한나</a><br><br><br>
+<a href="javascript:closeTest();">window.close_최한나</a><br><br><br>
+
+<br>
+<a href="javascript:naverLogin();">naverLogin</a><br><br><br>
+<a href="javascript:kakaoLogin();">kakaoLogin</a><br><br><br>
+<a href="javascript:snsUnlink();">snsUnlink</a><br><br><br>
+
+<br>
+<a href="javascript:appToWeb();">appToWeb</a><br><br><br><br>
+
+
+<a href="javascript:notDefined();">Not Defined ActKey</a><br><br><br>
+<a href="javascript:noArgs();">No Args</a><br><br><br>
+
+
+</body>
+</html>
+
