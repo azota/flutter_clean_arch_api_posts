@@ -11,3 +11,9 @@ PostDto _$PostDtoFromJson(Map<String, dynamic> json) => PostDto(
       json['userId'] as int,
       json['title'] as String,
     );
+
+Map<String, dynamic> _$PostDtoToJson(PostDto instance) => <String, dynamic>{
+      'id': instance.postId,
+      'userId': instance.userId,
+      'title': instance.title,
+    };

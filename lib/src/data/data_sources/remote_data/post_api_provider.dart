@@ -5,7 +5,10 @@ import 'package:retrofit/retrofit.dart';
 
 part 'post_api_provider.g.dart';
 
-@RestApi(baseUrl: 'https://jsonplaceholder.typicode.com')
+@RestApi(
+  baseUrl:
+      'https://jsonplaceholder.typicode.com', /* parser: Parser.FlutterCompute */
+)
 abstract class PostApiProvider {
   factory PostApiProvider(Dio dio) = _PostApiProvider;
 

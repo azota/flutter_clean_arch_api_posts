@@ -7,7 +7,10 @@
         {
             "name": "flutter_clean_arch_api_posts",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "--dart-define=APP_ENV=dev"
+            ],
         },
         {
             "name": "flutter_clean_arch_api_posts (profile mode)",

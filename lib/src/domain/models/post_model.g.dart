@@ -12,7 +12,6 @@ PostModel _$PostModelFromJson(Map<String, dynamic> json) => PostModel(
       title: json['title'] as String,
     );
 
-// ignore: unused_element
 Map<String, dynamic> _$PostModelToJson(PostModel instance) => <String, dynamic>{
       'postId': instance.postId,
       'userId': instance.userId,
