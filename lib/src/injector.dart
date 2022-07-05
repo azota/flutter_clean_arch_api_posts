@@ -6,17 +6,26 @@ import 'data/repositories/remote_repository_impl.dart';
 import 'domain/repositories/remote_repository.dart';
 import 'domain/use_cases/get_remote_comments_usecase.dart';
 import 'domain/use_cases/get_remote_posts_usecase.dart';
+import 'presentation/dio_client.dart';
+import 'presentation/helper/env_helper.dart';
 import 'presentation/manager/remote_comment_bloc/remote_comment_bloc.dart';
 import 'presentation/manager/remote_post_bloc/remote_post_bloc.dart';
 
 final injector = GetIt.instance;
 
 Future<void> initializeDependencies() async {
+  DioClient _dioClient = DioClient();
+
   // Dio client
-  injector.registerSingleton<Dio>(Dio());
+  // dio 그대로 사용
+  //injector.registerSingleton<Dio>(Dio());
+  // dio 커스텀해서 사용
+  injector.registerSingleton<Dio>(_dioClient.dio);
 
   // Dependencies
-  injector.registerSingleton<PostApiProvider>(PostApiProvider(injector()));
+  injector.registerSingleton<PostApiProvider>(
+    PostApiProvider(injector(), baseUrl: EnvHelper().API_URL),
+  );
 
   // Repositories
   injector.registerSingleton<RemoteRepository>(

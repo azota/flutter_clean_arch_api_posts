@@ -9,9 +9,7 @@ part of 'post_api_provider.dart';
 // ignore_for_file: unnecessary_brace_in_string_interps
 
 class _PostApiProvider implements PostApiProvider {
-  _PostApiProvider(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://jsonplaceholder.typicode.com';
-  }
+  _PostApiProvider(this._dio, {this.baseUrl});
 
   final Dio _dio;
 
@@ -26,7 +24,7 @@ class _PostApiProvider implements PostApiProvider {
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<PostDto>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/posts',
+                .compose(_dio.options, 'posts',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
@@ -38,13 +36,13 @@ class _PostApiProvider implements PostApiProvider {
   @override
   Future<List<CommentDto>> getCommentsByPostId(postId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'postId': postId};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<CommentDto>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/comments?postId=${postId}',
+                .compose(_dio.options, 'comments',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!

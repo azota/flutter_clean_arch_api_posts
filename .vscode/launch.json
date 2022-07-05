@@ -9,7 +9,7 @@
             "request": "launch",
             "type": "dart",
             "args": [
-                "--dart-define=APP_ENV=dev"
+                "--dart-define=APP_ENV=prd"
             ],
         },
         {

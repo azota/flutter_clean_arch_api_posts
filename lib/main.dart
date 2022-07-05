@@ -1,15 +1,20 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+
 import 'src/injector.dart';
 import 'src/presentation/helper/env_helper.dart';
 import 'src/presentation/pages/my_posts_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  const appEnv = String.fromEnvironment('APP_ENV');
+  await EnvHelper().load(fileName: '.env.$appEnv');
+
   await initializeDependencies();
   HttpOverrides.global = MyHttpOverrides();
-  //print('yhpark > api_url: ${EnvHelper().API_URL}');
+
   runApp(const MyApp());
 }
 
