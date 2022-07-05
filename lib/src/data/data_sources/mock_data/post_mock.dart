@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 import '../../dto/post_dto.dart';
+import '../../exceptions/typecast.exception.dart';
 
 class PostMock {
   Future<List<PostDto>> getPostsMock() async {
@@ -13,7 +14,7 @@ class PostMock {
 
       return Future(() => postDto);
     } catch (error) {
-      throw Exception();
+      throw TypeCastException(error.toString());
     }
   }
 }
