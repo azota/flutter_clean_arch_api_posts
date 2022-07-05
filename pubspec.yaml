@@ -38,6 +38,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - test/mock/
+    
     - .env.dev
     - .env.stg
     - .env.prd
