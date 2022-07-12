@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import '../../domain/models/comment_model.dart';
 import '../../domain/models/data_state_model.dart';
+import '../../domain/models/ecommerce_model.dart';
 import '../../domain/models/post_model.dart';
 import '../../domain/repositories/remote_repository.dart';
 import '../data_sources/mock_data/post_mock.dart';
@@ -33,6 +34,20 @@ class RemoteRepositoryImpl implements RemoteRepository {
       final response = await _postApiProvider.getCommentsByPostId(postId);
 
       return PostTranslator().translateComment(response);
+    } catch (e) {
+      log(e.toString());
+
+      return DataState.error(Exception(), e.toString());
+    }
+  }
+
+  @override
+  Future<DataState<List<EcommerceModel>>> getEcommerce() async {
+    try {
+      final response = await _postApiProvider.getEcommerce();
+      //final response = await PostMock().getPostsMock();
+
+      return PostTranslator().translateEcommerce(response);
     } catch (e) {
       log(e.toString());
 

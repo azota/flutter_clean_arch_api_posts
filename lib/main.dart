@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'src/injector.dart';
 import 'src/presentation/helper/env_helper.dart';
-import 'src/presentation/pages/my_posts_page.dart';
+import 'src/presentation/pages/ecommerce_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +30,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const MyPostsPage('Posts...'),
+      // post sample
+      //home: const MyPostsPage('Posts...'),
+      // ecommerce
+      home: const EcommercePage('Ecommerce...'),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../dto/comment_dto.dart';
+import '../../dto/ecommerce_dto.dart';
 import '../../dto/post_dto.dart';
 
 part 'post_api_provider.g.dart';
@@ -22,4 +23,6 @@ abstract class PostApiProvider {
   /* @GET('comments?postId={postId}')
   Future<List<CommentDto>> getCommentsByPostId(@Path('postId') int postId); */
 
+  @GET('posts')
+  Future<List<EcommerceDto>> getEcommerce();
 }

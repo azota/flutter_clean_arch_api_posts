@@ -4,10 +4,12 @@ import 'package:get_it/get_it.dart';
 import 'data/data_sources/remote_data/post_api_provider.dart';
 import 'data/repositories/remote_repository_impl.dart';
 import 'domain/repositories/remote_repository.dart';
+import 'domain/use_cases/get_ecommerce_usecase.dart';
 import 'domain/use_cases/get_remote_comments_usecase.dart';
 import 'domain/use_cases/get_remote_posts_usecase.dart';
 import 'presentation/dio_client.dart';
 import 'presentation/helper/env_helper.dart';
+import 'presentation/manager/ecommerce_bloc/ecommerce_bloc.dart';
 import 'presentation/manager/remote_comment_bloc/remote_comment_bloc.dart';
 import 'presentation/manager/remote_post_bloc/remote_post_bloc.dart';
 
@@ -39,9 +41,13 @@ Future<void> initializeDependencies() async {
   injector.registerSingleton<GetRemoteCommentsByPostIdUseCase>(
     GetRemoteCommentsByPostIdUseCase(injector()),
   );
+  injector.registerSingleton<GetEcommerceUseCase>(
+    GetEcommerceUseCase(injector()),
+  );
 
   // Blocs
   injector.registerFactory<RemotePostBloc>(() => RemotePostBloc(injector()));
   injector
       .registerFactory<RemoteCommentBloc>(() => RemoteCommentBloc(injector()));
+  injector.registerFactory<EcommerceBloc>(() => EcommerceBloc(injector()));
 }

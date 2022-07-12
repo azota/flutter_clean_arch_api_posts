@@ -8,16 +8,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../injector.dart';
 
-class MyPostsPage extends StatefulWidget {
+class EcommercePage extends StatefulWidget {
   final String title;
 
-  const MyPostsPage(this.title, {Key? key}) : super(key: key);
+  const EcommercePage(this.title, {Key? key}) : super(key: key);
 
   @override
-  _MyPostsPageState createState() => _MyPostsPageState();
+  _EcommercePageState createState() => _EcommercePageState();
 }
 
-class _MyPostsPageState extends State<MyPostsPage> {
+class _EcommercePageState extends State<EcommercePage> {
   @override
   void initState() {
     super.initState();
