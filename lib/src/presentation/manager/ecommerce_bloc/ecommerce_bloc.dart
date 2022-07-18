@@ -12,14 +12,12 @@ part 'ecommerce_state.dart';
 class EcommerceBloc extends Bloc<EcommerceEvent, EcommerceState> {
   final GetEcommerceUseCase _getEcommerceUseCase;
 
-  EcommerceBloc(this._getEcommerceUseCase) : super(EcommerceInitial()) {
-    on<EcommerceEvent>((event, emit) {
-      on<GetEcommerceList>(_getEcommerceList);
-    });
+  EcommerceBloc(this._getEcommerceUseCase) : super(EcommerceLoading()) {
+    on<GetEcommerceList>(_getEcommerceList);
   }
 
-  Future<FutureOr<void>> _getEcommerceList(
-    event,
+  Future<void> _getEcommerceList(
+    EcommerceEvent event,
     Emitter<EcommerceState> emit,
   ) async {
     final response = await _getEcommerceUseCase();

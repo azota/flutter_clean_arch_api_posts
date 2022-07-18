@@ -6,9 +6,13 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/domain/use_cases/get_ecommerce_usecase.dart';
+import 'package:flutter_app/src/injector.dart';
+import 'package:flutter_app/src/presentation/manager/ecommerce_bloc/ecommerce_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_app/main.dart';
+import 'package:get_it/get_it.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

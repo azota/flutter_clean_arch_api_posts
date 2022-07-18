@@ -12,6 +12,10 @@ abstract class EcommerceState extends Equatable {
 
 class EcommerceInitial extends EcommerceState {}
 
+class EcommerceLoading extends EcommerceState {
+  const EcommerceLoading();
+}
+
 class EcommerceLoaded extends EcommerceState {
   const EcommerceLoaded(List<EcommerceModel> items) : super(items: items);
 }

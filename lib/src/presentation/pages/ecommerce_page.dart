@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import '../../domain/models/post_model.dart';
-import '../manager/remote_post_bloc/remote_post_bloc.dart';
+import '../../domain/models/ecommerce_model.dart';
+import '../manager/ecommerce_bloc/ecommerce_bloc.dart';
 import 'my_comments_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,7 +29,7 @@ class _EcommercePageState extends State<EcommercePage> {
       providers: [
         BlocProvider(
           create: (_) =>
-              injector<RemotePostBloc>()..add(const GetRemotePosts()),
+              injector<EcommerceBloc>()..add(const GetEcommerceList()),
         ),
       ],
       child: Scaffold(
@@ -46,13 +46,13 @@ class _EcommercePageState extends State<EcommercePage> {
   }
 
   Widget _buildBody() {
-    return BlocBuilder<RemotePostBloc, RemotePostState>(
+    return BlocBuilder<EcommerceBloc, EcommerceState>(
       builder: (context, state) {
-        if (state is RemotePostLoading) {
+        if (state is EcommerceLoading) {
           return const Center(child: CircularProgressIndicator());
-        } else if (state is RemotePostLoadingDone) {
-          return _showListOfPosts(context, state.posts!);
-        } else if (state is RemotePostError) {
+        } else if (state is EcommerceLoaded) {
+          return _showListOfPosts(context, state.items!);
+        } else if (state is EcommerceError) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
@@ -60,8 +60,8 @@ class _EcommercePageState extends State<EcommercePage> {
                 Text('Error ${state.error}', textAlign: TextAlign.center),
                 ElevatedButton(
                   onPressed: () {
-                    BlocProvider.of<RemotePostBloc>(context)
-                        .add(const GetRemotePosts());
+                    BlocProvider.of<EcommerceBloc>(context)
+                        .add(const GetEcommerceList());
                   },
                   child: const Text('Try again'),
                 ),
@@ -75,7 +75,7 @@ class _EcommercePageState extends State<EcommercePage> {
     );
   }
 
-  Widget _showListOfPosts(BuildContext context, List<PostModel> posts) {
+  Widget _showListOfPosts(BuildContext context, List<EcommerceModel> posts) {
     return RefreshIndicator(
       child: ListView.builder(
         padding: const EdgeInsets.all(4),
@@ -106,6 +106,6 @@ class _EcommercePageState extends State<EcommercePage> {
   }
 
   Future<void> _onRefresh(BuildContext context) async {
-    BlocProvider.of<RemotePostBloc>(context).add(const GetRemotePosts());
+    BlocProvider.of<EcommerceBloc>(context).add(const GetEcommerceList());
   }
 }

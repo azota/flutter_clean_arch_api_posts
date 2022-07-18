@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'src/injector.dart';
 import 'src/presentation/helper/env_helper.dart';
 import 'src/presentation/pages/ecommerce_page.dart';
+import 'src/presentation/pages/login_page.dart';
+import 'src/presentation/pages/my_posts_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +35,8 @@ class MyApp extends StatelessWidget {
       // post sample
       //home: const MyPostsPage('Posts...'),
       // ecommerce
-      home: const EcommercePage('Ecommerce...'),
+      //home: const EcommercePage('Ecommerce...'),
+      home: const LoginPage(),
     );
   }
 }
