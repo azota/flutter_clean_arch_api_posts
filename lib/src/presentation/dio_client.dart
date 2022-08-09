@@ -45,7 +45,7 @@ class DioClient {
       return client;
     };
 
-    _dio.interceptors.add(LogInterceptor());
+    //_dio.interceptors.add(LogInterceptor());
 
     _dio.interceptors.add(
       InterceptorsWrapper(

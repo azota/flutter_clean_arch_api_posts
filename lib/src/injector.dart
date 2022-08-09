@@ -46,6 +46,8 @@ Future<void> initializeDependencies() async {
   );
 
   // Blocs
+  // Bloc은 절대 signleton으로 생성하면 안된다.
+  // UI와 연결된 Bloc은 UI에 따라 dispose될 수도 있기 때문
   injector.registerFactory<RemotePostBloc>(() => RemotePostBloc(injector()));
   injector
       .registerFactory<RemoteCommentBloc>(() => RemoteCommentBloc(injector()));

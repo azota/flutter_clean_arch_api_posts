@@ -1,7 +1,12 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import '../../data/data_sources/remote_data/post_api_provider.dart';
 import '../../domain/models/comment_model.dart';
+import '../../domain/use_cases/get_remote_posts_usecase.dart';
 import '../manager/remote_comment_bloc/remote_comment_bloc.dart';
+import '../manager/remote_post_bloc/remote_post_bloc.dart';
 import '../widgets/item_commet_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -22,12 +27,11 @@ class MyCommentsPage extends StatefulWidget {
 
 class _MyCommentsPageState extends State<MyCommentsPage> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    /* return Scaffold(
+      appBar: _buildAppBar(context),
+      body: _buildBody(),
+    ); */
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -49,6 +53,28 @@ class _MyCommentsPageState extends State<MyCommentsPage> {
   }
 
   Widget _buildBody() {
+    /* return BlocConsumer<RemotePostBloc, RemotePostState>(
+      listenWhen: (previous, current) {
+        print(
+          '############ yhpark > BlocConsumer > listenWhen: ${current.toString()}',
+        );
+
+        return true;
+      },
+      listener: (context, state) {
+        print(
+          '############ yhpark > BlocConsumer > listener: ${state.toString()}',
+        );
+      },
+      builder: (context, state) {
+        print(
+          '############ yhpark > BlocConsumer > builder: ${state.toString()}',
+        );
+
+        return Text('Always draw this text!');
+      },
+    ); */
+
     return BlocBuilder<RemoteCommentBloc, RemoteCommentState>(
       builder: (context, state) {
         if (state is RemoteCommentLoading) {

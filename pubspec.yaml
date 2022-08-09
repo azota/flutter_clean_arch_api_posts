@@ -25,6 +25,7 @@ dependencies:
   retrofit: ^3.0.1+1
   flutter_dotenv: ^5.0.2
   flutter_inappwebview: ^5.4.3+7
+  go_router: ^4.1.1
 
 dev_dependencies:
   flutter_test:

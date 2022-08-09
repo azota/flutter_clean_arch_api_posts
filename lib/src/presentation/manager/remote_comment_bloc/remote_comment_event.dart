@@ -9,3 +9,5 @@ abstract class RemoteCommentEvent {
 class GetRemoteComments extends RemoteCommentEvent {
   const GetRemoteComments(int postId) : super(postId: postId);
 }
+
+class UiEvent {}

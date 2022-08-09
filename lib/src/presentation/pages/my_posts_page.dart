@@ -1,8 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import '../../domain/models/post_model.dart';
+import '../manager/remote_comment_bloc/remote_comment_bloc.dart';
 import '../manager/remote_post_bloc/remote_post_bloc.dart';
+import '../router/router.dart';
 import 'my_comments_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,10 +25,16 @@ class _MyPostsPageState extends State<MyPostsPage> {
   @override
   void initState() {
     super.initState();
+
+    //BlocProvider.of<RemotePostBloc>(context).add(const GetRemotePosts());
   }
 
   @override
   Widget build(BuildContext context) {
+    /* return Scaffold(
+      appBar: _buildAppBar(context),
+      body: _buildBody(),
+    ); */
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -87,7 +97,16 @@ class _MyPostsPageState extends State<MyPostsPage> {
               leading: const Icon(Icons.post_add, color: Colors.blue),
               title: Text(posts[index].title),
               onTap: () {
-                Navigator.push(
+                /* context.pushNamed(
+                  'test',
+                  extra: {'url': 'aaa'},
+                  params: {'ids': '1'},
+                ); */
+                context.push('/comments', extra: {
+                  'id': posts[index].postId,
+                  'title': posts[index].title,
+                });
+                /* Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => MyCommentsPage(
@@ -95,7 +114,7 @@ class _MyPostsPageState extends State<MyPostsPage> {
                       posts[index].title,
                     ),
                   ),
-                );
+                ); */
               },
             ),
           );
