@@ -6,15 +6,29 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/domain/use_cases/get_ecommerce_usecase.dart';
-import 'package:flutter_app/src/injector.dart';
-import 'package:flutter_app/src/presentation/manager/ecommerce_bloc/ecommerce_bloc.dart';
+import 'package:flutter_app/main.dart';
+import 'package:flutter_app/src/presentation/pages/login_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_app/main.dart';
-import 'package:get_it/get_it.dart';
-
 void main() {
+  Future<void> pumpWidget(
+    WidgetTester tester,
+    LoginPage widget,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(home: Stack(children: [widget])),
+    );
+  }
+
+  testWidgets(
+    'Login Page #1 ',
+    (WidgetTester tester) async {
+      await pumpWidget(tester, LoginPage());
+
+      expect(find.text('Submit form'), findsOneWidget);
+    },
+  );
+
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
