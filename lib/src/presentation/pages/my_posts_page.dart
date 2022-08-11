@@ -97,15 +97,15 @@ class _MyPostsPageState extends State<MyPostsPage> {
               leading: const Icon(Icons.post_add, color: Colors.blue),
               title: Text(posts[index].title),
               onTap: () {
-                /* context.pushNamed(
+                context.pushNamed(
                   'test',
                   extra: {'url': 'aaa'},
                   params: {'ids': '1'},
-                ); */
-                context.push('/comments', extra: {
+                );
+                /* context.push('/comments', extra: {
                   'id': posts[index].postId,
                   'title': posts[index].title,
-                });
+                }); */
                 /* Navigator.push(
                   context,
                   MaterialPageRoute(
